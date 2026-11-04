@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Model API configuration import and export">
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#2F6FED"/>
+  <svg x="14" y="14" width="36" height="36" viewBox="0 0 24 24" fill="#FFFFFF">
+    <path d="M8,13V5.82L5.43,8.4L4,7L9,2l5,5L12.58,8.4L10,5.82V13H8Zm7,9l-5-5l1.43-1.4L14,18.18V11h2v7.18l2.57-2.58L20,17l-5,5Z"/>
+  </svg>
+</svg>

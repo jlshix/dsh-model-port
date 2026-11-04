@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Model API Config Import/Export",
+    "description": "Export one custom model provider as JSON, or paste JSON to import it; an existing provider with the same identity is overwritten."
+  }
+}
