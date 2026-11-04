@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-  id: '@local/dsh-model-port',
+  id: 'dsh-model-port',
   factory(require) {
     var module = { exports: {} };
     var exports = module.exports;
@@ -856,7 +856,7 @@ window.__ModuleLoader__.load({
       ctx.effect(() => {
         if (typeof document === 'undefined' || !document.head) return () => {};
         const tag = document.createElement('style');
-        tag.dataset.plugin = '@local/dsh-model-port';
+        tag.dataset.plugin = 'dsh-model-port';
         tag.textContent = CSS;
         document.head.appendChild(tag);
         return () => {

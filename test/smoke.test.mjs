@@ -17,7 +17,7 @@ globalThis.window = {
 await import('../client.js');
 assert.equal(captured.length, 1, 'client.js registers exactly one module');
 const definition = captured[0];
-assert.equal(definition.id, '@local/dsh-model-port');
+assert.equal(definition.id, 'dsh-model-port');
 
 const reactStub = {
   createElement() {

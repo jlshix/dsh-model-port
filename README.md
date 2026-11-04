@@ -24,14 +24,21 @@ Export/import detailed third-party model API configurations for DeepSeek Harness
 
 ## 安装
 
-插件位于仓库根目录（仓库根目录即插件包目录）。使用 Harness 的 Plugin Manager 安装目录包：
+插件以标准 Harness bundle 包发布（包名 `dsh-model-port`），仓库根目录即包目录。使用 Harness 的 Plugin Manager 从 GitHub 安装：
 
 ```text
 plugin_manager.action = install_bundle
-target = /Users/shijiliang/projects/dsh
+target = github:jlshix/dsh-model-port
 ```
 
-安装会修改当前 profile 并链接本目录，移动或删除目录会使插件失效。修改 `client.js` 后通常需要刷新页面；如果 Host 要求重启，请按 Plugin Manager 的结果处理。
+如果 GitHub HTTPS 不可达（例如网络需要代理），改用 SSH spec：
+
+```text
+plugin_manager.action = install_bundle
+target = git+ssh://git@github.com/jlshix/dsh-model-port.git
+```
+
+安装后 profile 的 `package.json` 会把 `dsh-model-port` 记录为 Git 依赖，并加入 `dsh.profile.bundles`，之后启动时自动加载。升级时重新执行安装；同名 bundle 已安装时，先移除旧 bundle 或按 Plugin Manager 的提示处理。修改 `client.js` 后通常需要刷新页面；如果 Host 要求重启，请按 Plugin Manager 的结果处理。
 
 ## JSON 格式（v1）
 

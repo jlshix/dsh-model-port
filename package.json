@@ -1,8 +1,24 @@
 {
-  "name": "@local/dsh-model-port",
+  "name": "dsh-model-port",
   "version": "1.0.0",
-  "private": true,
   "description": "Import and export one custom model provider's API configuration from Settings > Models.",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "bundle",
+    "model-provider"
+  ],
+  "license": "MIT",
+  "author": "jlshix",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlshix/dsh-model-port.git"
+  },
+  "homepage": "https://github.com/jlshix/dsh-model-port#readme",
+  "bugs": {
+    "url": "https://github.com/jlshix/dsh-model-port/issues"
+  },
   "type": "module",
   "exports": {
     ".": "./index.js",
@@ -17,7 +33,8 @@
     "cordis.patch.yml",
     "locale/*.json",
     "icon.svg",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "test": "node test/smoke.test.mjs"
