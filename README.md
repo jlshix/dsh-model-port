@@ -24,21 +24,36 @@ Export/import detailed third-party model API configurations for DeepSeek Harness
 
 ## 安装
 
-插件以标准 Harness bundle 包发布（包名 `dsh-model-port`），仓库根目录即包目录。使用 Harness 的 Plugin Manager 从 GitHub 安装：
+插件以标准 Harness bundle 发布到 npm，包名 `dsh-model-port`，仓库根目录即包目录。从 registry 安装（推荐）：
+
+```bash
+dsh plugin --profile web add dsh-model-port
+```
+
+或在 Harness 的 Plugin Manager 里用同样的 spec：
 
 ```text
 plugin_manager.action = install_bundle
+target = dsh-model-port
+```
+
+装好后 profile 的 `package.json` 记录 registry 依赖（`dsh-model-port: ^1.0.0`），并加入 `dsh.profile.bundles`，之后启动时自动加载。npm 装的 bundle 有版本语义：Web 插件页会列出 registry 上的新版本，可以直接在页面内升级，装前也会用目标版本的 `engines.dsh` 校验宿主兼容性。本包声明支持 `>=0.2.0 <0.3.0`（预发布版本参与匹配），范围外的宿主会在下载前被拒绝。
+
+Git 安装仍然可用，适合还没有对应 npm 版本的旧提交：
+
+```text
 target = github:jlshix/dsh-model-port
+# GitHub HTTPS 不可达时：target = git+ssh://git@github.com/jlshix/dsh-model-port.git
 ```
 
-如果 GitHub HTTPS 不可达（例如网络需要代理），改用 SSH spec：
+Git 依赖没有版本语义，插件页也不会提示更新。**从 Git 切到 npm 必须先移除再安装**，否则 profile 会留着旧的 Git spec：
 
-```text
-plugin_manager.action = install_bundle
-target = git+ssh://git@github.com/jlshix/dsh-model-port.git
+```bash
+dsh plugin --profile web remove dsh-model-port
+dsh plugin --profile web add dsh-model-port
 ```
 
-安装后 profile 的 `package.json` 会把 `dsh-model-port` 记录为 Git 依赖，并加入 `dsh.profile.bundles`，之后启动时自动加载。升级时重新执行安装；同名 bundle 已安装时，先移除旧 bundle 或按 Plugin Manager 的提示处理。修改 `client.js` 后通常需要刷新页面；如果 Host 要求重启，请按 Plugin Manager 的结果处理。
+修改 `client.js` 后通常刷新页面即可生效；Host 半或 `cordis.patch.yml` 改动需要重启，按 Plugin Manager 的结果处理。
 
 ## JSON 格式（v1）
 
@@ -105,6 +120,18 @@ node test/smoke.test.mjs
 ```
 
 测试覆盖纯逻辑：JSON 解析/校验、导出字段裁剪、目标解析、覆盖/新增路径操作、密钥必填与引用派生、导入目标名称、中英文键集一致性。测试不会写入真实的 settings 或凭据。
+
+## 发布
+
+包不打构建产物，`files` 白名单直接发布源码。发版三步：
+
+```bash
+npm version minor          # 或 patch / major，同时打 vX.Y.Z tag
+git push --follow-tags
+# tag 触发 .github/workflows/publish.yml：校验 tag 与 package.json 一致、跑测试、npm publish --provenance
+```
+
+首次发布前在 npmjs.com 配好该仓库的 trusted publishing（workflow 文件为 `publish.yml`），不需要在仓库里存 token。本地手动发布时用 `npm publish`；`prepublishOnly` 会先跑测试，`npm pack --dry-run` 可查看实际入包文件。
 
 ## 图标
 

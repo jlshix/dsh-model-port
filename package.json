@@ -20,6 +20,12 @@
     "url": "https://github.com/jlshix/dsh-model-port/issues"
   },
   "type": "module",
+  "engines": {
+    "dsh": ">=0.2.0 <0.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
@@ -37,7 +43,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node test/smoke.test.mjs"
+    "test": "node test/smoke.test.mjs",
+    "prepublishOnly": "npm test"
   },
   "dsh": {
     "bundle": {
